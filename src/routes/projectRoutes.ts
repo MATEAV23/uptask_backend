@@ -17,6 +17,8 @@ router.post('/',
     handleInputErrors,
     ProjectController.createProject
 
+    //prueba
+
 )
 router.get('/', ProjectController.getAllProjects)
 
