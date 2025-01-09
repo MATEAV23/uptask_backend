@@ -1,4 +1,4 @@
-import type {Request, Response} from 'express'
+import type { Request, Response } from 'express'
 import Project from '../models/Project'
 import { error } from 'node:console'
 
@@ -6,7 +6,7 @@ export class ProjectController {
 
     static createProject = async (req: Request, res: Response) => {
 
-        
+
 
         try {
             await Project.create(req.body)
@@ -15,7 +15,7 @@ export class ProjectController {
             console.log(error)
         }
 
-        
+
     }
 
     static getAllProjects = async (req: Request, res: Response) => {
@@ -36,15 +36,34 @@ export class ProjectController {
         try {
             const project = await Project.findById(id)
 
-            if(!project)
-            {
+            if (!project) {
                 const error = new Error('Proyecto no Encontrado')
-                res.status(400).json({error: error.message})
+                res.status(400).json({ error: error.message })
             }
             res.json(project)
         } catch (error) {
             console.log(error)
         }
-        
+
+    }
+
+    static updateProject = async (req: Request, res: Response): Promise<void> => {
+
+        const { id } = req.params
+
+        try {
+            const project = await Project.findByIdAndUpdate(id, req.body)
+
+            if (!project) {
+                const error = new Error('Proyecto no Encontrado')
+                res.status(400).json({ error: error.message })
+            }
+
+            await project.save()
+            res.send('Proyecto Actualizado')
+        } catch (error) {
+            console.log(error)
+        }
+
     }
 }
