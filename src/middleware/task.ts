@@ -32,7 +32,7 @@ export function taskBelongsToProject(req: Request, res: Response, next: NextFunc
 
     if(req.task.project.toString() !== req.project.id.toString()) {
         const error = new Error('Accion no valida')
-        res.status(400).json({error: error.message})
+        return res.status(400).json({error: error.message})
     }
     next()
 }
