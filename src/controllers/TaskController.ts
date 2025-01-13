@@ -30,11 +30,6 @@ export class TaskController {
         try {
             
 
-            if(req.task.project.toString() !== req.project.id) {
-                const error = new Error('Accion no valida')
-                res.status(400).json({error: error.message})
-            }
-
             res.json(req.task)
 
         } catch (error) {
@@ -44,11 +39,6 @@ export class TaskController {
 
     static updateTask = async (req: Request, res: Response): Promise<void> => {
         try {
-
-            if(req.task.project.toString() !== req.project.id) {
-                const error = new Error('Accion no valida')
-                res.status(400).json({error: error.message})
-            }
 
             req.task.name = req.body.name
             req.task.description = req.body.description
